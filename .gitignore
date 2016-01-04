@@ -4,7 +4,7 @@
 *.settings
 *.metadata
 *.recommenders
-target/*
+*/target/*
 
 
 

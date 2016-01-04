@@ -1,8 +1,4 @@
-C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\dao\Dao.java
-C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\dao\ShareDao.java
 C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\service\impl\ShareServiceImpl.java
 C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\repository\CompanyRepository.java
-C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\dao\impl\AbstractDao.java
-C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\dao\impl\ShareDaoImpl.java
 C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\repository\ShareRepository.java
 C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\service\ShareService.java

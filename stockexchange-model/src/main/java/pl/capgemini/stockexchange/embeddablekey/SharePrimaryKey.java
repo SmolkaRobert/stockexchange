@@ -17,8 +17,13 @@ public class SharePrimaryKey implements Serializable {
 	private Integer issueDate;
 
 	
+	
 	public SharePrimaryKey() {
-		super();
+	}
+	
+	public SharePrimaryKey(String company, Integer issueDate) {
+		this.company = company;
+		this.issueDate = issueDate;
 	}
 
 	public String getCompany() {

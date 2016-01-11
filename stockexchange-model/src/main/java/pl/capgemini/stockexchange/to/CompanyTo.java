@@ -1,22 +1,9 @@
-package pl.capgemini.stockexchange.entity;
+package pl.capgemini.stockexchange.to;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "companies")
-public class CompanyEntity {
-	@Id
-	@Column(name="company_name")
+public class CompanyTo {
 	private String name;
-
 	
-	public CompanyEntity() {
-	}
-
-	public CompanyEntity(String name) {
+	public CompanyTo(String name) {
 		this.name = name;
 	}
 
@@ -44,7 +31,7 @@ public class CompanyEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CompanyEntity other = (CompanyEntity) obj;
+		CompanyTo other = (CompanyTo) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -52,6 +39,4 @@ public class CompanyEntity {
 			return false;
 		return true;
 	}
-
-	
 }

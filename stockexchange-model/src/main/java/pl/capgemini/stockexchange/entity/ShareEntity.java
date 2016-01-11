@@ -30,9 +30,15 @@ public class ShareEntity implements Serializable {
 
 	
 	public ShareEntity() {
-		super();
+		
 	}
-
+	
+	public ShareEntity(SharePrimaryKey sharePK, CompanyEntity company, Float value) {
+		this.sharePK = sharePK;
+		this.company = company;
+		this.value = value;
+	}
+	
 	public SharePrimaryKey getSharePK() {
 		return sharePK;
 	}
@@ -93,5 +99,4 @@ public class ShareEntity implements Serializable {
 			return false;
 		return true;
 	}
-	
 }

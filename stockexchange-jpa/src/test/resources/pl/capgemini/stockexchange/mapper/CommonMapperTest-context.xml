@@ -6,6 +6,4 @@
 
     <import resource="../common_configuration/CommonDatabase-context.xml"/>
 
-    <bean id="bookDao" class="pl.capgemini.stockexchange.dao.impl.ShareDaoImpl" />
-
 </beans>

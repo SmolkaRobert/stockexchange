@@ -11,16 +11,21 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import pl.capgemini.stockexchange.entity.CompanyEntity;
+import pl.capgemini.stockexchange.entity.ShareEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "CommonRepositoryTest-context.xml")
-public class CompanyRepositoryTest {
+public class ShareRepositoryImplTest {
+	
 	@Autowired
-	private CompanyRepository companyRepository;
+	private ShareRepositoryImpl shareRepository;
 	
 	private String firstListedCompanyName;
 	private String secondListedCompanyName;
 	private String notListedCompanyName;
+	
+	private Integer dateListed;
+	private Integer dateNotListed;
 	
 	private CompanyEntity firstListedCompany;
 	private CompanyEntity secondListedCompany;
@@ -32,43 +37,36 @@ public class CompanyRepositoryTest {
 		secondListedCompanyName = "INTEL";
 		notListedCompanyName = "NOTLISTEDCOMPANY";
 		
+		dateListed = 20011024;
+		dateNotListed = 20011020;
+		
 		firstListedCompany = new CompanyEntity(firstListedCompanyName);
 		secondListedCompany = new CompanyEntity(secondListedCompanyName);
 		notListedCompany = new CompanyEntity(notListedCompanyName);
 	}
 	
 	@Test
-	public void shouldReturnEmptyCompanyList(){
+	public void shouldReturnEmptyListForDateNotListed(){
 		//given
-		CompanyEntity searchedCompany = notListedCompany;
+		Integer searchedDate = dateNotListed;
 		//when
-		List<CompanyEntity> companies = companyRepository.findCompanyByName(searchedCompany.getName());
+		List<ShareEntity> shares = shareRepository.findSharesByDate(searchedDate);
 		//then
-		Assertions.assertThat(companies).isNotNull().isEmpty();;
+		Assertions.assertThat(shares).isNotNull().isEmpty();
 	}
 	
 	@Test
-	public void shouldReturnAllCompanies(){
+	public void shouldFindAllSharesByDate(){
 		//given
+		CompanyEntity notSearchedCompany = notListedCompany;
+		CompanyEntity searchedCompany1 = firstListedCompany;
+		CompanyEntity searchedCompany2 = secondListedCompany;
+		
+		Integer searchedDate = dateListed;
 		//when
-		List<CompanyEntity> companies = companyRepository.findAll();
+		List<ShareEntity> shares = shareRepository.findSharesByDate(searchedDate);
 		//then
-		Assertions.assertThat(companies).isNotNull().isNotEmpty()
-			.extracting("name").contains(firstListedCompany.getName(), secondListedCompany.getName()).doesNotContain(notListedCompany.getName());
-	}
-	
-	@Test
-	public void shouldReturnCompanyWithGivenPartialName(){
-		//given
-		CompanyEntity searchedCompany = firstListedCompany;
-		String searchedCompanyName = searchedCompany.getName();
-		final String searchedName = searchedCompanyName.substring(0, 3);
-		//when
-		List<CompanyEntity> companies = companyRepository.findCompanyByName(searchedName);
-		//then
-		Assertions.assertThat(companies).isNotNull().isNotEmpty();
-		for(CompanyEntity singleCompany: companies){
-			Assertions.assertThat(singleCompany.getName().toLowerCase()).contains(searchedCompanyName.toLowerCase());
-		}
+		Assertions.assertThat(shares).isNotNull().isNotEmpty()
+			.extracting("company").extracting("name").contains(searchedCompany1.getName(), searchedCompany2.getName()).doesNotContain(notSearchedCompany.getName());
 	}
 }

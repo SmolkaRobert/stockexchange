@@ -1,5 +1,6 @@
 package pl.capgemini.stockexchange.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,7 +19,7 @@ public class ShareRepositoryImpl{
 	private EntityManager entityManager;
 
 	@Transactional(readOnly = true)
-	public List<ShareEntity> findSharesByDate(Integer date) {
+	public List<ShareEntity> findSharesByDate(Date date) {
 		Query query = entityManager.createQuery("FROM ShareEntity share WHERE share.sharePK.issueDate = :issueDate");
 		query.setParameter("issueDate", date);
 		return query.getResultList();

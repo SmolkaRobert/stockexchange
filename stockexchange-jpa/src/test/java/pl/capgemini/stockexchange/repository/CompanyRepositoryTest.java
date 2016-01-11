@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import pl.capgemini.stockexchange.entity.CompanyEntity;
+import pl.capgemini.stockexchange.to.CompanyTo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "CommonRepositoryTest-context.xml")

@@ -1,4 +1,7 @@
-C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\service\impl\ShareServiceImpl.java
+C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\mapper\DateMapper.java
+C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\mapper\CompanyMapper.java
+C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\repository\ShareRepositoryImpl.java
+C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\TemporaryTest.java
 C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\repository\CompanyRepository.java
-C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\repository\ShareRepository.java
-C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\service\ShareService.java
+C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\stockmarket\StockMarketImpl.java
+C:\stockexchange_workspace\business-logic\stockexchange-jpa\src\main\java\pl\capgemini\stockexchange\mapper\ShareMapper.java

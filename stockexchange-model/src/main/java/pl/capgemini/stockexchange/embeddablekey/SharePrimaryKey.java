@@ -1,12 +1,12 @@
 package pl.capgemini.stockexchange.embeddablekey;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
-
-import pl.capgemini.stockexchange.entity.CompanyEntity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Embeddable
 public class SharePrimaryKey implements Serializable {
@@ -14,14 +14,14 @@ public class SharePrimaryKey implements Serializable {
 	private String company;
 	
 	@Column(name = "issue_date", length = 8, nullable = false)
-	private Integer issueDate;
-
+	@Temporal(TemporalType.DATE)
+	private Date issueDate;
 	
 	
 	public SharePrimaryKey() {
 	}
 	
-	public SharePrimaryKey(String company, Integer issueDate) {
+	public SharePrimaryKey(String company, Date issueDate) {
 		this.company = company;
 		this.issueDate = issueDate;
 	}
@@ -34,11 +34,11 @@ public class SharePrimaryKey implements Serializable {
 		this.company = company;
 	}
 
-	public Integer getIssueDate() {
+	public Date getIssueDate() {
 		return issueDate;
 	}
 
-	public void setIssueDate(Integer issueDate) {
+	public void setIssueDate(Date issueDate) {
 		this.issueDate = issueDate;
 	}
 

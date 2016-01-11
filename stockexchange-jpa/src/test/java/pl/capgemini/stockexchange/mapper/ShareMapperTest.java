@@ -1,8 +1,7 @@
 package pl.capgemini.stockexchange.mapper;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.Date;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -24,7 +23,8 @@ public class ShareMapperTest {
 	@Autowired
 	private ShareMapper shareMapper;
 	
-	private static final DateTimeFormatter dateFormatter = DateTimeFormatter.BASIC_ISO_DATE;
+	@Autowired
+	private DateMapper dateMapper;
 	
 	private ShareTo shareTo;
 	private CompanyTo companyTo;
@@ -33,7 +33,7 @@ public class ShareMapperTest {
 	
 	private String companyName;
 	private LocalDate issueDate;
-	private Integer issueDateInteger;
+	private Date issueDateDB;
 	private Float value;
 
 	
@@ -41,13 +41,13 @@ public class ShareMapperTest {
 	public void testSetUp(){
 		companyName = "Microsoft";
 		issueDate = LocalDate.now();
-		issueDateInteger = Integer.parseInt(issueDate.format(dateFormatter));
+		issueDateDB = dateMapper.convertToDatabaseColumn(issueDate);
 		value = 10.23F;
 		
 		companyTo = new CompanyTo(companyName); 
 		shareTo = new ShareTo(companyTo, issueDate, value);
 		
-		sharePK = new SharePrimaryKey(companyName, issueDateInteger);
+		sharePK = new SharePrimaryKey(companyName, issueDateDB);
 		CompanyEntity companyEntity = new CompanyEntity(companyName);
 		shareEntity = new ShareEntity(sharePK, companyEntity, value);
 	}

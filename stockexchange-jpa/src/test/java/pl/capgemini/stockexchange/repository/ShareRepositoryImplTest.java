@@ -1,5 +1,6 @@
 package pl.capgemini.stockexchange.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.assertj.core.api.Assertions;
@@ -12,6 +13,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import pl.capgemini.stockexchange.entity.CompanyEntity;
 import pl.capgemini.stockexchange.entity.ShareEntity;
+import pl.capgemini.stockexchange.mapper.DateMapper;
+import pl.capgemini.stockexchange.stockmarket.StockMarketImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "CommonRepositoryTest-context.xml")
@@ -20,12 +23,15 @@ public class ShareRepositoryImplTest {
 	@Autowired
 	private ShareRepositoryImpl shareRepository;
 	
+	@Autowired
+	private DateMapper dateMapper;
+	
 	private String firstListedCompanyName;
 	private String secondListedCompanyName;
 	private String notListedCompanyName;
 	
-	private Integer dateListed;
-	private Integer dateNotListed;
+	private Date dateListed;
+	private Date dateNotListed;
 	
 	private CompanyEntity firstListedCompany;
 	private CompanyEntity secondListedCompany;
@@ -37,8 +43,8 @@ public class ShareRepositoryImplTest {
 		secondListedCompanyName = "INTEL";
 		notListedCompanyName = "NOTLISTEDCOMPANY";
 		
-		dateListed = 20011024;
-		dateNotListed = 20011020;
+		dateListed = dateMapper.convertIntegerToDate(20011024);
+		dateNotListed = dateMapper.convertIntegerToDate(20011020);
 		
 		firstListedCompany = new CompanyEntity(firstListedCompanyName);
 		secondListedCompany = new CompanyEntity(secondListedCompanyName);
@@ -48,7 +54,7 @@ public class ShareRepositoryImplTest {
 	@Test
 	public void shouldReturnEmptyListForDateNotListed(){
 		//given
-		Integer searchedDate = dateNotListed;
+		Date searchedDate = dateNotListed;
 		//when
 		List<ShareEntity> shares = shareRepository.findSharesByDate(searchedDate);
 		//then
@@ -62,7 +68,7 @@ public class ShareRepositoryImplTest {
 		CompanyEntity searchedCompany1 = firstListedCompany;
 		CompanyEntity searchedCompany2 = secondListedCompany;
 		
-		Integer searchedDate = dateListed;
+		Date searchedDate = dateListed;
 		//when
 		List<ShareEntity> shares = shareRepository.findSharesByDate(searchedDate);
 		//then

@@ -1,16 +1,17 @@
 package pl.capgemini.stockexchange.to;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class ShareTo{
 	private CompanyTo company;
 	private LocalDate issueDate;
-	private Float value;
+	private BigDecimal value;
 	
 	public ShareTo() {
 	}
 
-	public ShareTo(CompanyTo companyName, LocalDate issueDate, Float value) {
+	public ShareTo(CompanyTo companyName, LocalDate issueDate, BigDecimal value) {
 		this.company = companyName;
 		this.issueDate = issueDate;
 		this.value = value;
@@ -32,11 +33,11 @@ public class ShareTo{
 		this.issueDate = issueDate;
 	}
 
-	public Float getValue() {
+	public BigDecimal getValue() {
 		return value;
 	}
 
-	public void setValue(Float value) {
+	public void setValue(BigDecimal value) {
 		this.value = value;
 	}
 

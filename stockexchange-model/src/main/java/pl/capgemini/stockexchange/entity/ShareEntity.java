@@ -1,6 +1,7 @@
 package pl.capgemini.stockexchange.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -26,14 +27,14 @@ public class ShareEntity implements Serializable {
 	private CompanyEntity company;
 	
 	@Column(name = "share_value", nullable = false)
-	private Float value;
+	private BigDecimal value;
 
 	
 	public ShareEntity() {
 		
 	}
 	
-	public ShareEntity(SharePrimaryKey sharePK, CompanyEntity company, Float value) {
+	public ShareEntity(SharePrimaryKey sharePK, CompanyEntity company, BigDecimal value) {
 		this.sharePK = sharePK;
 		this.company = company;
 		this.value = value;
@@ -55,11 +56,11 @@ public class ShareEntity implements Serializable {
 		this.company = company;
 	}
 
-	public Float getValue() {
+	public BigDecimal getValue() {
 		return value;
 	}
 
-	public void setValue(Float value) {
+	public void setValue(BigDecimal value) {
 		this.value = value;
 	}
 

@@ -35,9 +35,9 @@ public class StockMarketImpl implements StockMarket {
 		this.currentDay = newDay;
 	}
 
-	public List<ShareTo> findSharesByDate(LocalDate issueDate) throws StockMarketException {
+	public List<ShareTo> findSharesByDate(LocalDate issueDate) throws DateFromTheFutureForStockMarketException {
 		if(issueDate.isAfter(this.currentDay)) {
-			throw new StockMarketException(StockMarketExceptionMessage);
+			throw new DateFromTheFutureForStockMarketException(StockMarketExceptionMessage);
 		}
 		return shareMapper.mapList2To(shareRepository.findSharesByDate(dateMapper.convertToDatabaseColumn(issueDate)));
 	}

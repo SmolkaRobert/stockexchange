@@ -1,5 +1,6 @@
 package pl.capgemini.stockexchange.mapper;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -20,6 +21,8 @@ import pl.capgemini.stockexchange.to.ShareTo;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "CommonMapperTest-context.xml")
 public class ShareMapperTest {
+	private static final double VALUE_IN_DOUBLE = 10.23;
+
 	@Autowired
 	private ShareMapper shareMapper;
 	
@@ -34,7 +37,7 @@ public class ShareMapperTest {
 	private String companyName;
 	private LocalDate issueDate;
 	private Date issueDateDB;
-	private Float value;
+	private BigDecimal value;
 
 	
 	@Before
@@ -42,7 +45,7 @@ public class ShareMapperTest {
 		companyName = "Microsoft";
 		issueDate = LocalDate.now();
 		issueDateDB = dateMapper.convertToDatabaseColumn(issueDate);
-		value = 10.23F;
+		value = BigDecimal.valueOf(VALUE_IN_DOUBLE);
 		
 		companyTo = new CompanyTo(companyName); 
 		shareTo = new ShareTo(companyTo, issueDate, value);

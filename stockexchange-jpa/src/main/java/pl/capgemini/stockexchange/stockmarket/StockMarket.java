@@ -7,7 +7,7 @@ import pl.capgemini.stockexchange.to.CompanyTo;
 import pl.capgemini.stockexchange.to.ShareTo;
 
 public interface StockMarket {
-	public List<ShareTo> findSharesByDate(LocalDate date) throws StockMarketException;
+	public List<ShareTo> findSharesByDate(LocalDate date) throws DateFromTheFutureForStockMarketException;
 	
 	public List<CompanyTo> findAllCompanies();
 }

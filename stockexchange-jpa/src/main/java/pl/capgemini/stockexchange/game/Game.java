@@ -2,10 +2,12 @@ package pl.capgemini.stockexchange.game;
 
 import java.time.LocalDate;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import pl.capgemini.stockexchange.dateservice.DateServiceImpl;
+import pl.capgemini.stockexchange.gamestrategy.GameStrategy;
 
 public class Game {
 	private static final Integer DAYS_INCREMENT = 1;
@@ -13,16 +15,25 @@ public class Game {
 	private LocalDate currentDate;
 	private LocalDate finalDate;
 
-	@Autowired
 	private DateServiceImpl dateService;
-
-	Game() {
+	
+	private GameStrategy gameStrategy;
+	
+	@Autowired
+	public Game(GameStrategy strategy, DateServiceImpl dateService) {
+		this.gameStrategy = strategy;
+		this.dateService = dateService;
+	}
+	
+	@PostConstruct
+	public void initGame(){
 		this.currentDate = dateService.findEarliestDate();
 		this.finalDate = dateService.findNewestDate();
 	}
 
 	public void play() {
-		while (isThereStillDayToGo()) {
+		while (isThereStillDayToPlay()) {
+			gameStrategy.execute();
 			
 			/* TODO RSmolka remove comment before final commit method to be
 			 * invoked as last
@@ -36,7 +47,7 @@ public class Game {
 		this.finalDate = dateService.findNewestDate();
 	}
 
-	private boolean isThereStillDayToGo() {
-		return this.currentDate.isAfter(this.finalDate);
+	private boolean isThereStillDayToPlay() {
+		return !(this.currentDate.isAfter(this.finalDate));
 	}
 }

@@ -31,6 +31,7 @@ public class ShareRepositoryImplTest {
 	private String notListedCompanyName;
 	
 	private Date dateListed;
+	private Date minDate;
 	private Date dateNotListed;
 	
 	private CompanyEntity firstListedCompany;
@@ -74,5 +75,25 @@ public class ShareRepositoryImplTest {
 		//then
 		Assertions.assertThat(shares).isNotNull().isNotEmpty()
 			.extracting("company").extracting("name").contains(searchedCompany1.getName(), searchedCompany2.getName()).doesNotContain(notSearchedCompany.getName());
+	}
+	
+	@Test
+	public void shouldFindNewestDate(){
+		//given
+		minDate = dateMapper.convertIntegerToDate(20011026);
+		//when
+		Date searchedDate = shareRepository.findNewestDate();
+		//then
+		Assertions.assertThat(searchedDate).isNotNull().isEqualTo(minDate);
+	}
+	
+	@Test
+	public void shouldFindEaliestDate(){
+		//given
+		minDate = dateMapper.convertIntegerToDate(20011024);
+		//when
+		Date searchedDate = shareRepository.findEarliestDate();
+		//then
+		Assertions.assertThat(searchedDate).isNotNull().isEqualTo(minDate);
 	}
 }

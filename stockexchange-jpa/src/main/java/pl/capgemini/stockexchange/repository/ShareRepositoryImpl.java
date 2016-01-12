@@ -24,4 +24,16 @@ public class ShareRepositoryImpl{
 		query.setParameter("issueDate", date);
 		return query.getResultList();
 	}
+	
+	@Transactional(readOnly = true)
+	public Date findNewestDate() {
+		Query query = entityManager.createQuery("SELECT MAX(share.sharePK.issueDate) FROM ShareEntity share");
+		return (Date) query.getSingleResult();
+	}
+
+	@Transactional(readOnly = true)
+	public Date findEarliestDate() {
+		Query query = entityManager.createQuery("SELECT MIN(share.sharePK.issueDate) FROM ShareEntity share");
+		return (Date) query.getSingleResult();
+	}
 }

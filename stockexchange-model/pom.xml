@@ -15,4 +15,19 @@
 			<version>1.0.0.Final</version>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>3.2.1</version>
+				<configuration>
+					<configFile>src/main/resources/config/flyway.properties</configFile>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
 </project>

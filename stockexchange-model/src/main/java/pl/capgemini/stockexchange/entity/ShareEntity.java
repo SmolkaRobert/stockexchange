@@ -26,7 +26,7 @@ public class ShareEntity implements Serializable {
 	private CompanyEntity company;
 	
 	@Column(name = "share_value", nullable = false)
-	Float value;
+	private Float value;
 
 	
 	public ShareEntity() {

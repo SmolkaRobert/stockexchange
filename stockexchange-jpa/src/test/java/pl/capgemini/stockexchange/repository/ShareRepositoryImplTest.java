@@ -82,7 +82,7 @@ public class ShareRepositoryImplTest {
 		//given
 		minDate = dateMapper.convertIntegerToDate(20011026);
 		//when
-		Date searchedDate = shareRepository.findNewestDate();
+		Date searchedDate = shareRepository.findLastDate();
 		//then
 		Assertions.assertThat(searchedDate).isNotNull().isEqualTo(minDate);
 	}

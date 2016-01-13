@@ -49,12 +49,10 @@ public class StockMarketImplTest {
 		firstListedCompany = new CompanyTo(firstListedCompanyName);
 		secondListedCompany = new CompanyTo(secondListedCompanyName);
 		notListedCompany = new CompanyTo(notListedCompanyName);
-		
-		stockMarket.update(dateListed);
 	}
 	
 	@Test
-	public void shouldReturnEmptyListForDateNotListed() throws DateFromTheFutureForStockMarketException{
+	public void shouldReturnEmptyListForDateNotListed() throws DateFromTheFutureForStockExchangeException{
 		//given
 		LocalDate searchedDate = dateNotListed;
 		//when
@@ -64,7 +62,7 @@ public class StockMarketImplTest {
 	}
 	
 	@Test
-	public void shouldFindAllSharesByDate() throws DateFromTheFutureForStockMarketException{
+	public void shouldFindAllSharesByDate() throws DateFromTheFutureForStockExchangeException{
 		//given
 		CompanyTo notSearchedCompany = notListedCompany;
 		CompanyTo searchedCompany1 = firstListedCompany;
@@ -97,8 +95,8 @@ public class StockMarketImplTest {
 		.extracting("name").contains(searchedCompany1.getName(), searchedCompany2.getName()).doesNotContain(notSearchedCompany.getName());
 	}
 	
-	@Test(expected=DateFromTheFutureForStockMarketException.class)
-	public void shouldThrowExceptionWhenDateFromTheFuture() throws DateFromTheFutureForStockMarketException{
+	@Test(expected=DateFromTheFutureForStockExchangeException.class)
+	public void shouldThrowExceptionWhenDateFromTheFuture() throws DateFromTheFutureForStockExchangeException{
 		//given
 		LocalDate searchedDate = dateListed.plusDays(2);
 		//when

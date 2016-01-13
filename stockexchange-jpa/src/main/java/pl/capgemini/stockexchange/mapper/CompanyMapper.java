@@ -13,7 +13,7 @@ import pl.capgemini.stockexchange.to.ShareTo;
 @Service
 public class CompanyMapper {
 
-	//TODO RSmolka tests for CompanyMapper
+	//TODO RSmolka add CompanyMapper tests
 	public CompanyTo map(CompanyEntity companyEntity) {
 		if(companyEntity != null){
 			return new CompanyTo(companyEntity.getName());

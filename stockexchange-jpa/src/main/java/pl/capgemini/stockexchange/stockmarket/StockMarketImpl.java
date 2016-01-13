@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pl.capgemini.stockexchange.calendar.StockCalendar;
 import pl.capgemini.stockexchange.mapper.CompanyMapper;
 import pl.capgemini.stockexchange.mapper.DateMapper;
 import pl.capgemini.stockexchange.mapper.ShareMapper;
@@ -16,8 +17,6 @@ import pl.capgemini.stockexchange.to.ShareTo;
 
 @Service
 public class StockMarketImpl implements StockMarket {
-	private static final String StockMarketExceptionMessage = "Date cannot be from the future.";
-	
 	@Autowired
 	private ShareRepositoryImpl shareRepository;
 	@Autowired
@@ -28,16 +27,12 @@ public class StockMarketImpl implements StockMarket {
 	private ShareMapper shareMapper;
 	@Autowired
 	private CompanyMapper companyMapper;
+	@Autowired
+	private StockCalendar calendar;
 
-	private LocalDate currentDay;
-
-	public void update(LocalDate newDay) {
-		this.currentDay = newDay;
-	}
-
-	public List<ShareTo> findSharesByDate(LocalDate issueDate) throws DateFromTheFutureForStockMarketException {
-		if(issueDate.isAfter(this.currentDay)) {
-			throw new DateFromTheFutureForStockMarketException(StockMarketExceptionMessage);
+	public List<ShareTo> findSharesByDate(LocalDate issueDate) throws DateFromTheFutureForStockExchangeException {
+		if(issueDate.isAfter(calendar.getCurrentDate())) {
+			throw new DateFromTheFutureForStockExchangeException();
 		}
 		return shareMapper.mapList2To(shareRepository.findSharesByDate(dateMapper.convertToDatabaseColumn(issueDate)));
 	}

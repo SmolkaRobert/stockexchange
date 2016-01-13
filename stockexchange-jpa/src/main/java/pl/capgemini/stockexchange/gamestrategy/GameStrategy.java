@@ -1,8 +1,9 @@
 package pl.capgemini.stockexchange.gamestrategy;
 
-import org.springframework.stereotype.Component;
+import pl.capgemini.stockexchange.stockmarket.DateFromTheFutureForStockExchangeException;
+import pl.capgemini.stockexchange.to.OfferListTo;
 
-@Component
+
 public interface GameStrategy {
-	public void execute();
+	public OfferListTo calculate() throws DateFromTheFutureForStockExchangeException;
 }

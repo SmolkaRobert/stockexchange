@@ -1,53 +1,63 @@
 package pl.capgemini.stockexchange.game;
 
-import java.time.LocalDate;
-
-import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import pl.capgemini.stockexchange.dateservice.DateServiceImpl;
+import pl.capgemini.stockexchange.bigdecimalutils.BigDecimalUtils;
+import pl.capgemini.stockexchange.brokeroffice.manager.BrokerOfficeManager;
+import pl.capgemini.stockexchange.calendar.StockCalendar;
+import pl.capgemini.stockexchange.exchangeoffice.manager.ExchangeOfficeManager;
 import pl.capgemini.stockexchange.gamestrategy.GameStrategy;
+import pl.capgemini.stockexchange.player.Player;
+import pl.capgemini.stockexchange.stockmarket.DateFromTheFutureForStockExchangeException;
+import pl.capgemini.stockexchange.to.MoneyTransactionTo;
+import pl.capgemini.stockexchange.to.OfferListTo;
+import pl.capgemini.stockexchange.to.ShareEvaluatedTo;
 
+//@Component
 public class Game {
-	private static final Integer DAYS_INCREMENT = 1;
+	private final Currency defaultCurrency = Currency.getInstance(new Locale("pl", "PL"));
+	private BigDecimal currentPlayerMoneyInOneCurrency;
+	private BigDecimal currentBuyCost;
 
-	private LocalDate currentDate;
-	private LocalDate finalDate;
-
-	private DateServiceImpl dateService;
-	
-	private GameStrategy gameStrategy;
-	
 	@Autowired
-	public Game(GameStrategy strategy, DateServiceImpl dateService) {
-		this.gameStrategy = strategy;
-		this.dateService = dateService;
-	}
-	
-	@PostConstruct
-	public void initGame(){
-		this.currentDate = dateService.findEarliestDate();
-		this.finalDate = dateService.findNewestDate();
-	}
+	private GameStrategy gameStrategy;
+	@Autowired
+	private StockCalendar calendar;
+	@Autowired
+	private Player player;
+	@Autowired
+	private BrokerOfficeManager brokerOfficeManager;
+	@Autowired
+	private ExchangeOfficeManager exchangeOfficeManager;
 
-	public void play() {
-		while (isThereStillDayToPlay()) {
-			gameStrategy.execute();
+	public void play() throws DateFromTheFutureForStockExchangeException {
+		while (!calendar.passedLastDay()) {
+			List<MoneyTransactionTo> moneyFromWallet = player.getMoneyFromWallet();
+			currentPlayerMoneyInOneCurrency = exchangeOfficeManager.changeMoneyToCurrency(moneyFromWallet, defaultCurrency);
+
+			OfferListTo plannedTransactions = gameStrategy.calculate();
+
+			List<ShareEvaluatedTo> evaluatedShares = brokerOfficeManager.evaluateTransaction(plannedTransactions.getSharesToBuy());
+			currentBuyCost = brokerOfficeManager.calculateEvaluatedCost();
+			// possible addition: modify strategy if cost is too much or not enough shares
 			
-			/* TODO RSmolka remove comment before final commit method to be
-			 * invoked as last
-			 */
-			updateGameDates();
+			if (isEnoughMoneyToBuy()) {
+				
+				// buy shares => get money from wallet and add shares to share wallet
+			}
+			
+			//at the end change half money into Euros
+
+			calendar.goToNextDay();
 		}
 	}
 
-	private void updateGameDates() {
-		this.currentDate = dateService.getNextWorkingDay(currentDate, DAYS_INCREMENT);
-		this.finalDate = dateService.findNewestDate();
-	}
-
-	private boolean isThereStillDayToPlay() {
-		return !(this.currentDate.isAfter(this.finalDate));
+	private boolean isEnoughMoneyToBuy() {
+		return BigDecimalUtils.isGreaterOrEqual(currentPlayerMoneyInOneCurrency, currentBuyCost);
 	}
 }

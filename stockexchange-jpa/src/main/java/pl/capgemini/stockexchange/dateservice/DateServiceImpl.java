@@ -11,6 +11,7 @@ import pl.capgemini.stockexchange.repository.ShareRepositoryImpl;
 
 @Service
 public class DateServiceImpl implements DateService {
+	private static final int DAYS_TO_ADD = 1;
 	@Autowired
 	private ShareRepositoryImpl shareRepository;
 	@Autowired
@@ -22,26 +23,26 @@ public class DateServiceImpl implements DateService {
 	}
 	
 	@Override
-	public LocalDate findNewestDate() {
-		return dateMapper.convertToEntityAttribute(shareRepository.findNewestDate());
+	public LocalDate findLastDate() {
+		return dateMapper.convertToEntityAttribute(shareRepository.findLastDate());
 	}
 
-	public LocalDate getNextWorkingDay(LocalDate currentDate, Integer daysIncrement) {
-	    final Integer daysToAdd = 1;
+	public LocalDate getNextWorkingDate(LocalDate currentDate, Integer daysIncrement) {
+	    final Integer daysToAdd = DAYS_TO_ADD;
 	    
 		if (daysIncrement < daysToAdd) {
 	        return currentDate;
 	    }
 
-	    LocalDate nextDate = currentDate;
+	    LocalDate nextWorkingDate = currentDate;
 	    Integer addedDays = 0;
 	    while (addedDays < daysIncrement) {
-	        nextDate = nextDate.plusDays(daysToAdd);
-	        if (!(nextDate.getDayOfWeek() == DayOfWeek.SATURDAY || nextDate.getDayOfWeek() == DayOfWeek.SUNDAY)) {
+	        nextWorkingDate = nextWorkingDate.plusDays(daysToAdd);
+	        if (!(nextWorkingDate.getDayOfWeek() == DayOfWeek.SATURDAY || nextWorkingDate.getDayOfWeek() == DayOfWeek.SUNDAY)) {
 	            ++addedDays;
 	        }
 	    }
 
-	    return nextDate;
+	    return nextWorkingDate;
 	}
 }

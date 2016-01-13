@@ -26,7 +26,7 @@ public class ShareRepositoryImpl{
 	}
 	
 	@Transactional(readOnly = true)
-	public Date findNewestDate() {
+	public Date findLastDate() {
 		Query query = entityManager.createQuery("SELECT MAX(share.sharePK.issueDate) FROM ShareEntity share");
 		return (Date) query.getSingleResult();
 	}

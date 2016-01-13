@@ -55,7 +55,7 @@ public class DateServiceImplTest {
 		//given
 		LocalDate searchedDate = maxDate;
 		//when
-		LocalDate returnedDate = dateService.findNewestDate();
+		LocalDate returnedDate = dateService.findLastDate();
 		//then
 		Assertions.assertThat(returnedDate).isNotNull().isEqualTo(searchedDate);
 	}
@@ -77,7 +77,7 @@ public class DateServiceImplTest {
 		LocalDate startDate = thursdayDate;
 		LocalDate searchedDate = startDate.plusDays(daysToAdd);
 		//when
-		LocalDate returnedDate = dateService.getNextWorkingDay(startDate, daysToAdd);
+		LocalDate returnedDate = dateService.getNextWorkingDate(startDate, daysToAdd);
 		//then
 		Assertions.assertThat(returnedDate).isEqualTo(searchedDate);
 	}
@@ -92,7 +92,7 @@ public class DateServiceImplTest {
 		LocalDate startDate = fridayDate;
 		LocalDate searchedDate = startDate.plusDays(numberOfDaysPassed);
 		//when
-		LocalDate returnedDate = dateService.getNextWorkingDay(startDate, daysToAdd);
+		LocalDate returnedDate = dateService.getNextWorkingDate(startDate, daysToAdd);
 		//then
 		Assertions.assertThat(returnedDate).isEqualTo(searchedDate);
 	}

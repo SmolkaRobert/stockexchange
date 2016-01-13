@@ -1,25 +1,25 @@
 package pl.capgemini.stockexchange.sharewallet.impl;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import pl.capgemini.stockexchange.sharewallet.ShareWallet;
-import pl.capgemini.stockexchange.to.CompanyTo;
+import pl.capgemini.stockexchange.to.ShareOfferTo;
 
 @Component
 public class ShareWalletImpl implements ShareWallet {
 	
-	private HashMap<CompanyTo, Integer> content = new HashMap<CompanyTo, Integer>();
+	private List<ShareOfferTo> shares = new ArrayList<ShareOfferTo>();
 
 	@Override
-	public Map<CompanyTo, Integer> getContent() {
-		return content;
+	public List<ShareOfferTo> getShares() {
+		return shares;
 	}
 	
 	public boolean isEmpty(){
-		return content.isEmpty();
+		return shares.isEmpty();
 	}
 	
 	@Override

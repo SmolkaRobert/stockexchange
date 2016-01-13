@@ -3,7 +3,9 @@ package pl.capgemini.stockexchange.dateservice;
 import java.time.LocalDate;
 
 public interface DateService {
-	LocalDate findNewestDate();
+	public LocalDate findLastDate();
 
-	LocalDate findEarliestDate();
+	public LocalDate findEarliestDate();
+	
+	public LocalDate getNextWorkingDate(LocalDate currentDate, Integer daysIncrement);
 }
